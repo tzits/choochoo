@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<hmtl lang="en">
+  <head>
+    <script>
+
+      let lines = []
+      const api_url =
+            "https://goodservice.io/api/stops/A32.json";
+
+      function find_lines(data) {
+        let north = data.upcoming_trips.north;
+        for (i = 0; i < north.length; i ++) {
+          if (lines.includes(north[i].route_id)) {
+          } else {
+            lines.push(north[i].route_id)
+          }
+        }
+      }
+
+      function getTrainTimes(url) {
+        let line = document.getElementById('lines').value
+        if (document.getElementById("textDisplay")) {
+          document.getElementById("textDisplay").remove()
+        }
+        fetch(url)
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            find_lines(data);
+            let northTrains = data.upcoming_trips.north;
+            let southTrains = data.upcoming_trips.south;
+            console.log(southTrains);
+            get_Trains(northTrains,line,"North");
+            get_Trains(southTrains,line,"South");
+          })
+      }
+
+      function get_Trains(our_data,line,direction) {
+        let trainLine = our_data.filter(train => train.route_id == line)
+        let arrivalTime =  trainLine.map(train => train.estimated_current_stop_arrival_time)
+        let timeStamp = trainLine.map(train => train.timestamp)
+        let times = []
+        let trainText = ''
+        for (i=0; i < 5; i ++) {
+          let myTime = new Date(arrivalTime[i] * 1000).getMinutes()-new Date(timeStamp[i] * 1000).getMinutes()
+          if (myTime < 0) {
+            myTime += 60;
+          }
+          times.push(myTime)
+        }
+
+        for (i = 0; i < 5; i++) {
+          if(times[i] < times[i-1]) {
+            times[i] += 60;
+          }
+          if (!times[i]) {
+          } else {
+          trainText += times[i] + ", "
+          }
+        }
+        let myTrainText = trainText.slice(0,-2);
+        document.getElementById('train_times').appendChild(addItem(myTrainText,line,direction));
+      }
+
+      function addItem(trainTime,line,string) {
+        let li = document.createElement('li')
+        console.log(li)
+        li.id = string
+        li.class = "fa-regular fa-train"
+        console.log(li)
+        li.textContent =  `The ${string}bound ${line} train will arrive in ` + trainTime + ' minutes'
+        console.log(li)
+        return li
+      }
+
+    </script>
+    <style>
+
+      <!-- body {
+        display: flex;
+        align-items: center;
+        height: 80%;
+        width: 95%;
+      } -->
+
+      ul {
+        list-style-type: none;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: black;
+        height: 40vh;
+        width: 80%;
+        flex-wrap: wrap;
+      }
+      li {
+        font-size: 1.5em;
+        background-color: lightgrey;
+        flex: 1;
+        text-align: center;
+        margin: 10px;
+        <!-- width: 60%; -->
+
+      }
+    </style>
+  </head>
+  <body>
+    <div class="trains">
+      <select id="lines" name="lines">
+        <option value="A">A</option>
+        <option value="C">C</option>
+        <option value="E">E</option>
+      </select>
+      <button onClick="getTrainTimes(api_url)">Load Trains</button>
+      <ul id="train_times">
+      </ul>
+    </div>
+  </body>
+</hmtl>
