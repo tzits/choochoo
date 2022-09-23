@@ -3,27 +3,29 @@
 <hmtl lang="en">
   <head>
     <script>
-
+      let stationVal = ""
       let lines = []
-      const api_url =
-            "https://goodservice.io/api/stops/A32.json";
+      let api_url =
+            "https://goodservice.io/api/stops/"
 
       function find_lines(data) {
+        let lines = []
         let north = data.upcoming_trips.north;
         for (i = 0; i < north.length; i ++) {
           if (lines.includes(north[i].route_id)) {
           } else {
             lines.push(north[i].route_id)
           }
-        }
+        } console.log(lines)
       }
 
       function getTrainTimes(url) {
         let line = document.getElementById('lines').value
+        stationVal = document.getElementById('stations').value
         if (document.getElementById("textDisplay")) {
           document.getElementById("textDisplay").remove()
         }
-        fetch(url)
+        fetch(url + stationVal + '.json')
           .then((response) => {
             return response.json();
           })
@@ -113,6 +115,16 @@
     </style>
   </head>
   <body>
+    <div class="stations">
+      <select id="stations" name="stations">
+        <option value="A32">West 4th</option>
+        <option value="134">Houston</option>
+        <option value="L08">Bedford</option>
+        <option value="117">116th</option>
+        <option value="G22">Court Square</option>
+        <!-- <button onClick="getTrainTimes(api_url)">Load Lines</button> -->
+        </select>
+    </div>
     <div class="trains">
       <select id="lines" name="lines">
         <option value="A">A</option>
