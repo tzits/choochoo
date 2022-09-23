@@ -31,7 +31,6 @@
             find_lines(data);
             let northTrains = data.upcoming_trips.north;
             let southTrains = data.upcoming_trips.south;
-            console.log(southTrains);
             get_Trains(northTrains,line,"North");
             get_Trains(southTrains,line,"South");
           })
