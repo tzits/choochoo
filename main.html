@@ -9,22 +9,35 @@
             "https://goodservice.io/api/stops/"
 
       function find_lines(data) {
-        let lines = []
         let north = data.upcoming_trips.north;
+        if (!lines.includes(north[0])) {
+          let lines = []
+        }
         for (i = 0; i < north.length; i ++) {
           if (lines.includes(north[i].route_id)) {
           } else {
             lines.push(north[i].route_id)
+            let newEl = document.createElement('option');
+            newEl.setAttribute('id',north[i]);
+            newEl.setAttribute('value',north[i]);
+            newEl.text = north[i].route_id;
+            document.getElementById("lines").appendChild(newEl)
+            console.log(document.getElementById("button"))
+            document.getElementById("button").innerHTML = "Load Trains"
           }
         } console.log(lines)
       }
 
+      // function loadLines() {
+      //   find_lines
+      // }
+
       function getTrainTimes(url) {
         let line = document.getElementById('lines').value
         stationVal = document.getElementById('stations').value
-        if (document.getElementById("textDisplay")) {
-          document.getElementById("textDisplay").remove()
-        }
+        // if (document.getElementById("textDisplay")) {
+        //   document.getElementById("textDisplay").remove()
+        // }
         fetch(url + stationVal + '.json')
           .then((response) => {
             return response.json();
@@ -36,9 +49,12 @@
             } else {
               let northTrains = data.upcoming_trips.north;
               let southTrains = data.upcoming_trips.south;
-              console.log(southTrains);
+              // this is a placeholder bs line, need to find way to generate options once lines
+              // station is found
+              line = lines[0]
               get_Trains(northTrains,line,"North");
               get_Trains(southTrains,line,"South");
+              lines = []
             }
           })
       }
@@ -122,16 +138,16 @@
         <option value="L08">Bedford</option>
         <option value="117">116th</option>
         <option value="G22">Court Square</option>
-        <!-- <button onClick="getTrainTimes(api_url)">Load Lines</button> -->
+        <!-- <button id="button" onClick="getTrainTimes(api_url)">Load Lines</button> -->
         </select>
     </div>
     <div class="trains">
       <select id="lines" name="lines">
-        <option value="A">A</option>
+        <!-- <option value="A">A</option>
         <option value="C">C</option>
-        <option value="E">E</option>
+        <option value="E">E</option> -->
       </select>
-      <button onClick="getTrainTimes(api_url)">Load Trains</button>
+      <button id="button" onClick="getTrainTimes(api_url)">Load Lines</button>
       <ul id="train_times">
       </ul>
     </div>
