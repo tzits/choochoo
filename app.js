@@ -4,6 +4,12 @@ let api_url =
       "https://goodservice.io/api/stops/"
 
 function find_lines(data) {
+  while (document.getElementById("lines").firstChild) {
+    document.getElementById("lines").removeChild(document.getElementById("lines").firstChild);
+  }
+  while (document.getElementById("train_times").firstChild) {
+    document.getElementById("train_times").removeChild(document.getElementById("train_times").firstChild);
+  }
   let north = data.upcoming_trips.north;
   if (!lines.includes(north[0])) {
     let lines = []
@@ -72,6 +78,7 @@ function get_Trains(our_data,line,direction) {
   }
   let myTrainText = trainText.slice(0,-2);
   document.getElementById('train_times').appendChild(addItem(myTrainText,line,direction));
+  document.getElementById("button").innerHTML = "RESET"
 }
 
 function addItem(trainTime,line,string) {
