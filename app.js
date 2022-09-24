@@ -78,7 +78,7 @@ function get_Trains(our_data,line,direction) {
   }
   let myTrainText = trainText.slice(0,-2);
   document.getElementById('train_times').appendChild(addItem(myTrainText,line,direction));
-  document.getElementById("button").innerHTML = "RESET"
+  document.getElementById("button").innerHTML = "Find Lines"
 }
 
 function addItem(trainTime,line,string) {
