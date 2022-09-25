@@ -3,21 +3,18 @@ ul {
   display: flex;
   flex-direction: column;
   align-items: center;
-  <!-- background-color: black; -->
   height: 40vh;
   width: 80%;
   flex-wrap: wrap;
 }
-li {
+
+li, #North, #South {
   font-size: 1.5em;
   background-color: lightgrey;
   flex: 1;
   text-align: center;
-  <!-- margin: 10px; -->
   padding: 5px;
   border: 10px solid black;
-  <!-- width: 60%; -->
-
 }
 
 .container {
@@ -40,4 +37,50 @@ button {
 
 .trains {
   list-style-type: none;
+}
+
+.logo {
+  color: white;
+  padding: 5px;
+  border-radius: 50%;
+  height: 25px;
+  width: 25px;
+  display: inline-block;
+  margin: 5px 0 5px 0;
+}
+
+#C, #E, #A {
+  background-color: #0039A6;
+}
+
+#F, #D, #M, #B {
+  background-color: #ff6319;
+}
+
+#L {
+  background-color: #a7a9ac;
+}
+
+#one {
+  background-color: #ee352e;
+}
+
+#four {
+  background-color: #00933c;
+}
+
+#seven {
+  background-color: #b933ad;
+}
+
+#G {
+  background-color: #6cbe45;
+}
+
+#N, #R, #Q, #W {
+  background-color: #fccc0a;
+}
+
+#J, #M {
+  background-color: #996633;
 }
