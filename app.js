@@ -43,9 +43,8 @@ function getTrainTimes(url) {
       } else {
         let northTrains = data.upcoming_trips.north;
         let southTrains = data.upcoming_trips.south;
-        // this is a placeholder bs line, need to find way to generate options once lines
-        // station is found
-        line = lines[0]
+        let lineVar = document.getElementById("lines")
+        line = lineVar.options[lineVar.selectedIndex].text
         get_Trains(northTrains,line,"North");
         get_Trains(southTrains,line,"South");
         lines = []
@@ -77,17 +76,56 @@ function get_Trains(our_data,line,direction) {
     }
   }
   let myTrainText = trainText.slice(0,-2);
-  document.getElementById('train_times').appendChild(addItem(myTrainText,line,direction));
-  document.getElementById("button").innerHTML = "Find Lines"
+  document.getElementById('train_times').appendChild(addDiv(myTrainText,line,direction));
+  // addDiv(myTrainText,line,direction)
+  document.getElementById("button").innerHTML = "RESET"
 }
 
-function addItem(trainTime,line,string) {
-  let li = document.createElement('li')
-  console.log(li)
-  li.id = string
-  li.class = "fa-regular fa-train"
-  console.log(li)
-  li.textContent =  `The ${string}bound ${line} train will arrive in ` + trainTime + ' minutes'
-  console.log(li)
-  return li
+// function addItem(trainTime,line,string) {
+//   let li = document.createElement('li')
+//   console.log(li)
+//   li.id = string
+//   li.class = "fa-regular fa-train"
+//   console.log(li)
+//   li.textContent =  `The ${string}bound ${line} train will arrive in ` + trainTime + ' minutes'
+//   console.log(li)
+//   return li
+// }
+
+function addDiv(trainTime,line,string) {
+
+  let div = document.createElement('div');
+  div.class = "train_div"
+  div.id = string
+
+  let span1 = document.createElement('span');
+  span1.class = string;
+  span1.textContent = `The ${string}bound `;
+
+  let span2 = document.createElement('span');
+  span2.className = "logo"
+  span2.textContent = line;
+
+  if (line == "1" || line == "2" || line == "3") {
+    line = "one";
+    span2.id = line
+  } else if (line == "4" || line == "5" || line == "6") {
+    line = "four";
+    span2.id = line
+  } else if (line == "7") {
+    line = "seven";
+    span2.id = line
+  } else {
+    span2.id = line
+  }
+
+  let span3 = document.createElement('span');
+  span3.class = "time"
+  span3.textContent = ` train will arive in ` + trainTime + ' minutes'
+
+  div.appendChild(span1)
+  div.appendChild(span2)
+  div.appendChild(span3)
+  return div
+
 }
