@@ -1,7 +1,27 @@
 let stationVal = ""
 let lines = []
-let api_url =
-      "https://goodservice.io/api/stops/"
+let api_url = "https://goodservice.io/api/stops"
+
+function loadStations() {
+  fetch(api_url)
+  .then((response) => {
+    return response.json();
+  })
+  .then((data) => {
+    console.log(data.stops.length)
+    let lineObjectArray = []
+    for( i=0; i < data.stops.length; i++) {
+      // console.log(data.stops[i].name, data.stops[i].id)
+      console.log(data.stops[i].name, Object.keys(data.stops[i].routes))
+      let myKey = data.stops[i].name
+      let myVal = Object.keys(data.stops[i].routes)
+      let obj = {
+        myKey: myVal
+      }
+      lineObjectArray.push(obj)
+    }
+  })
+}
 
 function find_lines(data) {
   while (document.getElementById("lines").firstChild) {
@@ -23,22 +43,20 @@ function find_lines(data) {
       newEl.setAttribute('value',north[i]);
       newEl.text = north[i].route_id;
       document.getElementById("lines").appendChild(newEl)
-      console.log(document.getElementById("button"))
       document.getElementById("button").innerHTML = "Load Trains"
     }
-  } console.log(lines)
+  }
 }
 
 function getTrainTimes(url) {
   let line = document.getElementById('lines').value
   stationVal = document.getElementById('stations').value
-  fetch(url + stationVal + '.json')
+  fetch(url + '/' + stationVal + '.json')
     .then((response) => {
       return response.json();
     })
     .then((data) => {
       if (lines.length == 0) {
-        console.log('empty')
         find_lines(data);
       } else {
         let northTrains = data.upcoming_trips.north;
@@ -80,17 +98,6 @@ function get_Trains(our_data,line,direction) {
   // addDiv(myTrainText,line,direction)
   document.getElementById("button").innerHTML = "RESET"
 }
-
-// function addItem(trainTime,line,string) {
-//   let li = document.createElement('li')
-//   console.log(li)
-//   li.id = string
-//   li.class = "fa-regular fa-train"
-//   console.log(li)
-//   li.textContent =  `The ${string}bound ${line} train will arrive in ` + trainTime + ' minutes'
-//   console.log(li)
-//   return li
-// }
 
 function addDiv(trainTime,line,string) {
 
