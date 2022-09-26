@@ -1,6 +1,15 @@
 let stationVal = ""
 let lines = []
 let api_url = "https://goodservice.io/api/stops"
+let linesObject = {
+  l: [],
+  one: [],
+  two: [],
+  three: [],
+  a: [],
+  c: [],
+  e: []
+}
 
 function loadStations() {
   fetch(api_url)
@@ -8,19 +17,48 @@ function loadStations() {
     return response.json();
   })
   .then((data) => {
-    console.log(data.stops.length)
+    // console.log(data.stops.length)
     let lineObjectArray = []
     for( i=0; i < data.stops.length; i++) {
       // console.log(data.stops[i].name, data.stops[i].id)
-      console.log(data.stops[i].name, Object.keys(data.stops[i].routes))
+      // console.log(data.stops[i].name, Object.keys(data.stops[i].routes))
       let myKey = data.stops[i].name
       let myVal = Object.keys(data.stops[i].routes)
       let obj = {
-        myKey: myVal
+        name: myKey,
+        lines: myVal
       }
       lineObjectArray.push(obj)
     }
+    divideStations(lineObjectArray)
   })
+}
+
+function divideStations(data) {
+  let linesStations = {}
+  // let stationObject = {}
+  for (i=0; i < data.length; i++) {
+    for (j=0; j < data[i].lines.length; j ++) {
+      console.log(data[i].name, data[i].lines[j])
+      let testVar = `${data[i].lines[j]}`
+      if (testVar == "L") {
+        linesObject.l.push(data[i].name)
+      } else if (testVar == "A") {
+        linesObject.a.push(data[i].name)
+      } else if (testVar == "C") {
+        linesObject.c.push(data[i].name)
+      } else if (testVar == "E") {
+        linesObject.e.push(data[i].name)
+      } else if (testVar == "1") {
+        linesObject.one.push(data[i].name)
+      } else if (testVar == "2") {
+        linesObject.two.push(data[i].name)
+      } else if (testVar == "3") {
+        linesObject.three.push(data[i].name)
+      }
+    }
+  }
+  console.log(linesObject)
 }
 
 function find_lines(data) {
