@@ -8,7 +8,8 @@ let linesObject = {
   three: [],
   a: [],
   c: [],
-  e: []
+  e: [],
+  g: []
 }
 
 function loadStations() {
@@ -17,16 +18,15 @@ function loadStations() {
     return response.json();
   })
   .then((data) => {
-    // console.log(data.stops.length)
     let lineObjectArray = []
     for( i=0; i < data.stops.length; i++) {
-      // console.log(data.stops[i].name, data.stops[i].id)
-      // console.log(data.stops[i].name, Object.keys(data.stops[i].routes))
       let myKey = data.stops[i].name
       let myVal = Object.keys(data.stops[i].routes)
+      let myId = data.stops[i].id
       let obj = {
         name: myKey,
-        lines: myVal
+        lines: myVal,
+        stationId: myId
       }
       lineObjectArray.push(obj)
     }
@@ -35,32 +35,81 @@ function loadStations() {
 }
 
 function divideStations(data) {
-  let linesStations = {}
-  // let stationObject = {}
+  // console.log(data)
   for (i=0; i < data.length; i++) {
     for (j=0; j < data[i].lines.length; j ++) {
       // console.log(data[i].name, data[i].lines[j])
       let testVar = `${data[i].lines[j]}`
       if (testVar == "L") {
-        linesObject.l.push(data[i].name)
+          linesObject.l.push({
+          name: data[i].name,
+          id: data[i].stationId
+        })
       } else if (testVar == "A") {
-        linesObject.a.push(data[i].name)
+          linesObject.a.push({
+          name: data[i].name,
+          id: data[i].stationId
+        })
       } else if (testVar == "C") {
-        linesObject.c.push(data[i].name)
+          linesObject.c.push({
+          name: data[i].name,
+          id: data[i].stationId
+          })
       } else if (testVar == "E") {
-        linesObject.e.push(data[i].name)
+          linesObject.e.push({
+          name: data[i].name,
+          id: data[i].stationId
+          })
       } else if (testVar == "1") {
-        linesObject.one.push(data[i].name)
+          linesObject.one.push({
+          name: data[i].name,
+          id: data[i].stationId
+          })
       } else if (testVar == "2") {
-        linesObject.two.push(data[i].name)
+          linesObject.two.push({
+          name: data[i].name,
+          id: data[i].stationId
+          })
       } else if (testVar == "3") {
-        linesObject.three.push(data[i].name)
+          linesObject.three.push({
+          name: data[i].name,
+          id: data[i].stationId
+          })
+      } else if (testVar == "G") {
+        linesObject.g.push({
+          name: data[i].name,
+          id: data[i].stationId
+          })
       }
     }
   }
+  console.log(linesObject)
   for (i=0; i < Object.keys(linesObject).length; i ++) {
     let indexVar = Object.keys(linesObject)[i]
-    console.log(linesObject[indexVar])
+    // console.log(indexVar)
+    //gives me line name
+    // console.log(Object.values(linesObject)[i])
+    // console.log(Object.keys(linesObject)[i])
+    //gives me list of stations
+    // console.log(linesObject[indexVar])
+    let lineList = []
+    let lineHTML = document.createElement('select');
+    lineHTML.setAttribute('id',indexVar + 'line');
+    lineHTML.setAttribute('name',indexVar);
+    // lineHTML.text = indexVar
+    document.getElementById('linecontainer').appendChild(lineHTML);
+    for (j=0; j < Object.values(linesObject).length; j++) {
+      console.log(Object.values(linesObject)[i][j].id)
+      // console.log(linesObject[indexVar][j])
+      // lineList.push(linesObject[indexVar][j])
+      let lineOption = document.createElement('option');
+      // console.log(lineOption)
+      lineOption.setAttribute('id',Object.values(linesObject)[i][j].id);
+      lineOption.setAttribute('value',Object.values(linesObject)[i][j].id);
+      lineOption.text = Object.values(linesObject)[i][j].name
+      lineHTML.appendChild(lineOption)
+    }
+    // console.log(indexVar, lineList)
   }
 }
 
