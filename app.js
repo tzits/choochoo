@@ -39,7 +39,7 @@ function divideStations(data) {
   // let stationObject = {}
   for (i=0; i < data.length; i++) {
     for (j=0; j < data[i].lines.length; j ++) {
-      console.log(data[i].name, data[i].lines[j])
+      // console.log(data[i].name, data[i].lines[j])
       let testVar = `${data[i].lines[j]}`
       if (testVar == "L") {
         linesObject.l.push(data[i].name)
@@ -58,7 +58,10 @@ function divideStations(data) {
       }
     }
   }
-  console.log(linesObject)
+  for (i=0; i < Object.keys(linesObject).length; i ++) {
+    let indexVar = Object.keys(linesObject)[i]
+    console.log(linesObject[indexVar])
+  }
 }
 
 function find_lines(data) {
