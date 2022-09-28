@@ -83,33 +83,27 @@ function divideStations(data) {
       }
     }
   }
-  console.log(linesObject)
+  // console.log(linesObject)
   for (i=0; i < Object.keys(linesObject).length; i ++) {
-    let indexVar = Object.keys(linesObject)[i]
-    // console.log(indexVar)
-    //gives me line name
-    // console.log(Object.values(linesObject)[i])
-    // console.log(Object.keys(linesObject)[i])
-    //gives me list of stations
-    // console.log(linesObject[indexVar])
-    let lineList = []
-    let lineHTML = document.createElement('select');
-    lineHTML.setAttribute('id',indexVar + 'line');
-    lineHTML.setAttribute('name',indexVar);
-    // lineHTML.text = indexVar
-    document.getElementById('linecontainer').appendChild(lineHTML);
-    for (j=0; j < Object.values(linesObject).length; j++) {
-      console.log(Object.values(linesObject)[i][j].id)
-      // console.log(linesObject[indexVar][j])
-      // lineList.push(linesObject[indexVar][j])
-      let lineOption = document.createElement('option');
-      // console.log(lineOption)
-      lineOption.setAttribute('id',Object.values(linesObject)[i][j].id);
-      lineOption.setAttribute('value',Object.values(linesObject)[i][j].id);
-      lineOption.text = Object.values(linesObject)[i][j].name
-      lineHTML.appendChild(lineOption)
-    }
-    // console.log(indexVar, lineList)
+    // for (k=0; k < Object.keys(linesObject)[i].length; k ++) {
+      let indexVar = Object.keys(linesObject)[i]
+      let lineList = []
+      let lineHTML = document.createElement('select');
+
+      lineHTML.setAttribute('id',indexVar + 'line');
+      lineHTML.setAttribute('name',indexVar);
+      // lineHTML.text = indexVar
+      document.getElementById('linecontainer').appendChild(lineHTML);
+        for (j=0; j < linesObject[Object.keys(linesObject)[i]].length ; j ++) {
+          let lineOption = document.createElement('option');
+          let stationName = linesObject[Object.keys(linesObject)[i]][j].name
+          let stationVal = linesObject[Object.keys(linesObject)[i]][j].id
+          lineOption.setAttribute('id',stationVal);
+          lineOption.setAttribute('value',stationVal);
+          lineOption.text = stationName
+          lineHTML.appendChild(lineOption)
+        }
+
   }
 }
 
