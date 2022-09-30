@@ -89,9 +89,14 @@ function divideStations(data) {
       let indexVar = Object.keys(linesObject)[i]
       let lineList = []
       let lineHTML = document.createElement('select');
-
+      console.log(Object.keys(linesObject))
       lineHTML.setAttribute('id',indexVar + 'line');
       lineHTML.setAttribute('name',indexVar);
+      let lineLabel = document.createElement('label')
+      lineLabel.setAttribute('id',Object.keys(linesObject)[i])
+      lineLabel.innerHTML = Object.keys(linesObject)[i]
+      console.log(lineLabel);
+      lineHTML.appendChild(lineLabel)
       // lineHTML.text = indexVar
       document.getElementById('linecontainer').appendChild(lineHTML);
         for (j=0; j < linesObject[Object.keys(linesObject)[i]].length ; j ++) {
@@ -101,6 +106,7 @@ function divideStations(data) {
           lineOption.setAttribute('id',stationVal);
           lineOption.setAttribute('value',stationVal);
           lineOption.text = stationName
+          // lineLabel.innerHTML = linesObject[Object.keys(linesObject)[i]]
           lineHTML.appendChild(lineOption)
         }
 
