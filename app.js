@@ -167,7 +167,7 @@ function get_Trains(our_data,line,direction) {
   let times = []
   let trainText = ''
   for (i=0; i < 5; i ++) {
-    let myTime = new Date(arrivalTime[i] * 1000).getMinutes()-new Date(timeStamp[i] * 1000).getMinutes()
+    let myTime = Math.round((arrivalTime[i]-timeStamp[i])/60)
     if (myTime < 0) {
       myTime += 60;
     }
