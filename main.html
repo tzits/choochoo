@@ -7,6 +7,8 @@
   </head>
   <body>
     <div class="container">
+      <div id="linecontainer" class="lines item">
+      </div>
       <div class="stations item">
         <select id="stations" name="stations">
           <option value="A32">West 4th</option>
@@ -23,9 +25,8 @@
         </select>
         <button id="button" onClick="getTrainTimes(api_url)">Load Lines</button>
       </div>
-      <div class="trains item"
-        <ul id="train_times" class="item">
-        </ul>
+      <div class="trains item">
+        <ul id="train_times" class="item"></ul>
       </div>
     </div>
   </body>
