@@ -83,7 +83,6 @@ function divideStations(data) {
       }
     }
   }
-  // console.log(linesObject)
   for (i=0; i < Object.keys(linesObject).length; i ++) {
     // for (k=0; k < Object.keys(linesObject)[i].length; k ++) {
       let indexVar = Object.keys(linesObject)[i]
@@ -106,7 +105,6 @@ function divideStations(data) {
           lineOption.setAttribute('id',stationVal);
           lineOption.setAttribute('value',stationVal);
           lineOption.text = stationName
-          // lineLabel.innerHTML = linesObject[Object.keys(linesObject)[i]]
           lineHTML.appendChild(lineOption)
         }
 
