@@ -111,13 +111,13 @@ function divideStations(data: any) {
   // console.log(linesObject)
   for (let i=0; i < Object.keys(linesObject).length; i ++) {
     // for (k=0; k < Object.keys(linesObject)[i].length; k ++) {
-      let indexVar = Object.keys(linesObject)[i]
+      let indexVar: string = Object.keys(linesObject)[i]
       let lineList: string[] = []
       let lineHTML = document.createElement('select') as HTMLSelectElement;
       // console.log(Object.keys(linesObject))
       lineHTML.setAttribute('id',indexVar + 'line');
       lineHTML.setAttribute('name',indexVar);
-      let lineLabel = document.createElement('label')
+      let lineLabel = document.createElement('label') as HTMLLabelElement
       lineLabel.setAttribute('id',Object.keys(linesObject)[i])
       lineLabel.innerHTML = Object.keys(linesObject)[i]
       // console.log(lineLabel);
@@ -152,7 +152,7 @@ function find_lines(data: any) {
   }
   let north: directionInterface[] = data.upcoming_trips.north;
   if (north.length === 0) {
-    let lines = []
+    let lines: string[] = []
   }
   for (let i = 0; i < north.length; i ++) {
     if (lines.indexOf(north[i].route_id) !== -1) {
@@ -183,8 +183,8 @@ function getTrainTimes(url: string) {
       if (lines.length == 0) {
         find_lines(data);
       } else {
-        let northTrains = data.upcoming_trips.north;
-        let southTrains = data.upcoming_trips.south;
+        let northTrains: directionInterface[] = data.upcoming_trips.north;
+        let southTrains: directionInterface[] = data.upcoming_trips.south;
         let lineVar = document.getElementById("lines") as HTMLSelectElement | null
             if (lineVar != null) {
                 line = lineVar.options[lineVar.selectedIndex].text
@@ -198,8 +198,8 @@ function getTrainTimes(url: string) {
 
 function get_Trains(our_data: any[],line: string, direction: string) {
   let trainLine: any = our_data.filter((train: { route_id: string }) => train.route_id == line)
-  let arrivalTime =  trainLine.map((train: { estimated_current_stop_arrival_time: any }) => train.estimated_current_stop_arrival_time)
-  let timeStamp = trainLine.map((train: { timestamp: any }) => train.timestamp)
+  let arrivalTime =  trainLine.map((train: { estimated_current_stop_arrival_time: number }) => train.estimated_current_stop_arrival_time)
+  let timeStamp = trainLine.map((train: { timestamp: number }) => train.timestamp)
   let times: number[] = []
   let trainText = ''
   for (let i=0; i < 5; i ++) {
