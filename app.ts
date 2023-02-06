@@ -227,7 +227,7 @@ function get_Trains(our_data: any[],line: string, direction: string) {
   reset.innerHTML = "RESET"
 }
 
-function addDiv(trainTime: string,line: string,string: string): HTMLDivElement {
+function addDiv(trainTime: string, line: string, string: string): HTMLDivElement {
 
   let div = document.createElement('div') as HTMLDivElement;
   div.className = "train_div" as string
