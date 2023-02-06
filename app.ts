@@ -108,21 +108,16 @@ function divideStations(data: any) {
       }
     }
   }
-  // console.log(linesObject)
   for (let i=0; i < Object.keys(linesObject).length; i ++) {
-    // for (k=0; k < Object.keys(linesObject)[i].length; k ++) {
       let indexVar: string = Object.keys(linesObject)[i]
       let lineList: string[] = []
       let lineHTML = document.createElement('select') as HTMLSelectElement;
-      // console.log(Object.keys(linesObject))
       lineHTML.setAttribute('id',indexVar + 'line');
       lineHTML.setAttribute('name',indexVar);
       let lineLabel = document.createElement('label') as HTMLLabelElement
       lineLabel.setAttribute('id',Object.keys(linesObject)[i])
       lineLabel.innerHTML = Object.keys(linesObject)[i]
-      // console.log(lineLabel);
       lineHTML.appendChild(lineLabel)
-      // lineHTML.text = indexVar
       let myDocEl = document.querySelector('#linecontainer') as HTMLInputElement
       if (myDocEl) {
         myDocEl.appendChild(lineHTML);
@@ -134,7 +129,6 @@ function divideStations(data: any) {
         lineOption.setAttribute('id',stationVal);
         lineOption.setAttribute('value',stationVal);
         lineOption.text = stationName
-        // lineLabel.innerHTML = linesObject[Object.keys(linesObject)[i]]
         lineHTML.appendChild(lineOption)
     }
 
@@ -222,7 +216,6 @@ function get_Trains(our_data: any[],line: string, direction: string) {
   let myTrainText: string = trainText.slice(0,-2);
   let trainTimes = document.getElementById('train_times') as HTMLInputElement
   trainTimes.appendChild(addDiv(myTrainText,line,direction));
-  // addDiv(myTrainText,line,direction)
   let reset = document.getElementById("button") as HTMLInputElement
   reset.innerHTML = "RESET"
 }
